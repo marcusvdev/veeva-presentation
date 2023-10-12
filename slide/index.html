@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *,
+        *::before,
+        *::after {
+            outline: none;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        #main {
+            width: 1024px;
+            height: 768px;
+            background-color: #F5F5F5;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #AN_BTN {
+            display: inline-block;
+            background-color: #303030;
+            color: #FFF;
+            border-radius: 100px;
+            padding: 1rem 4rem;
+        }
+
+        #AN_BTN.disable {
+            opacity: .3;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8" src="./js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/jquery.gsap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/TweenMax.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/veeva-library.js"></script>
+    <script>
+        $(document).ready(function () {
+            var myTemplate = "";
+            var myUrl = "";
+            var myId = "";
+            function startAE(url, id){
+                myUrl = url;
+                myId = id;
+                getTemplateDocId();
+            }
+            function getTemplateDocId() {
+                com.veeva.clm.getApprovedDocument(myUrl, myId, getFragmentId);
+            }
+            function getFragmentId(result) {
+                if (result.success == true) {
+                    myTemplate = result.Approved_Document_vod__c.ID;
+                    com.veeva.clm.getApprovedDocument(myUrl, myId, launchAE);
+                }
+            }
+            function launchAE(result) {
+                if (result.success == true) {
+                    com.veeva.clm.launchApprovedEmail(myTemplate, result.Approved_Document_vod__c.ID, callback);
+                }
+            }
+            function callback(result) {}
+
+            $("#AN_BTN").on("touchstart", function () {
+                startAE("https://sanofi-4mpromomats.veevavault.com", "5468");
+            });
+        })
+    </script>
+    <script type="text/javascript" charset="utf-8" src="./js/main.js"></script>
+</head>
+
+<body>
+    <div id="main">
+        <div id="AN_BTN">VER AE</div>
+        <div id="RESULT"></div>
+    </div>
+</body>
+
+</html>
