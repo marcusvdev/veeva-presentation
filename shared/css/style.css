@@ -1,0 +1,47 @@
+:root{
+--color-primary: #3a47d5;
+--color-secondary: #00d2ff;
+--color-white: #FFFFFF;
+}
+*,
+*::before,
+*::after {
+    outline: none;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body{
+    width: 100%;
+    font: 16px/22px Arial, sans-serif;
+}
+
+#MAIN {
+    width: 1024px;
+    height: 768px;
+    background: var(--color-primary);
+    background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#TITULO{
+    color: var(--color-white);
+    font-size: 2rem;
+    line-height: 4rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#AN_BTN {
+    display: inline-block;
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-weight: bold;
+    border-radius: 100px;
+    padding: 1rem 4rem;
+}

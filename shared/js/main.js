@@ -89,4 +89,28 @@ $(document).ready(function () {
 			console.table(element_track);
 		});
 	}
+
+	// VEEVA AE
+	var env = 'https://my-test-vault.veevavault.com';
+	var ae = '';
+	$('[data-ae]').on('touchstart', function(event){
+		event.preventDefault();
+		ae = $(this).data('ae');
+		getTemplateDocId();
+	});
+	function getTemplateDocId() {
+		com.veeva.clm.getApprovedDocument(env, ae, getFragmentId);
+	}
+	function getFragmentId(result) {
+		if (result.success == true) {
+			myTemplate = result.Approved_Document_vod__c.ID;
+			com.veeva.clm.getApprovedDocument(env, ae, launchAE);
+		}
+	}
+	function launchAE(result) {
+		if (result.success == true) {
+			com.veeva.clm.launchApprovedEmail(myTemplate, result.Approved_Document_vod__c.ID, callback);
+		}
+	}
+	function callback(result) {}
 });
